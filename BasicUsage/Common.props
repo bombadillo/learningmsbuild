@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+    <PropertyGroup>
+        <Name>Homer</Name>
+        <FullName>$(Name) Simpson</FullName>
+        <TestTexts>c:\Training\msbuild\tests\*.txt</TestTexts>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Tests Include="$(TestTexts)" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Simpsons Include="Homer">
+            <CatchPhrase>Doh</CatchPhrase>
+        </Simpsons>
+        <Simpsons Include="Marge">
+            <CatchPhrase>Mmmmmmmmmph</CatchPhrase>
+        </Simpsons>
+        <Simpsons Include="Bart">
+            <CatchPhrase>Ayecarumba!</CatchPhrase>
+        </Simpsons>
+        <Simpsons Include="Lisa">
+            <CatchPhrase>Bart!</CatchPhrase>
+        </Simpsons>
+        <Simpsons Include="Maggie">
+            <CatchPhrase>burp!</CatchPhrase>
+        </Simpsons>
+    </ItemGroup>
+
+</Project>

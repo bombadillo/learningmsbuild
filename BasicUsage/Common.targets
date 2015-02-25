@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+    <Import Project="Common.props" />
+
+    <Target Name="ListTests" DependsOnTargets="ListSimpsons">
+        <Message Text="@(Tests)" />
+        <Message Text="@(Tests->'%(ModifiedTime)')" />
+    </Target>
+
+    <Target Name="ListSimpsons">
+        <Message Text="@(Simpsons)" />
+        <Message Text="@(Simpsons->'%(CatchPhrase)')" />
+    </Target>
+
+    <Target Name="HelloJoe">
+        <Message Text="Hello, $(FullName)!" Importance="High"></Message>
+    </Target>
+
+    <Target Name="SeeYaJoe">
+        <Message Text="See ya, $(FullName)!" Importance="Normal"></Message>
+        <CallTarget Targets="ListTests" />
+    </Target>
+
+    <Target Name="ReservedProps" AfterTargets="ListSimpsons">
+        <Message Text="MSBuildProjectDirectory : $(MSBuildProjectDirectory)" />
+        <Message Text="LOGONSERVER : $(LOGONSERVER)" />
+    </Target>
+
+
+</Project>

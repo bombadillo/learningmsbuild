@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+    <Import Project="C:\Program Files\MSBuild\ExtensionPack\4.0\MSBuild.ExtensionPack.tasks" />
+
+    <Target Name="PackageStuff">
+        <ItemGroup>
+            <FilesToZip Include="C:\Training\msbuild\UsingExtensionPack\tests\*.txt" />
+        </ItemGroup>
+
+        <MSBuild.ExtensionPack.Compression.DNZip
+            TaskAction="Create"
+            CompressFiles="@(FilesToZip)"
+            ZipFileName="C:\Training\msbuild\UsingExtensionPack\ZippedUpStuff.zip"/>
+
+        <Message Text="@(FilesToZip)" />
+
+    </Target>
+
+
+
+</Project>

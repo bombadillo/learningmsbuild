@@ -154,3 +154,57 @@ For 64-bit CPUs you may need to alter the `MSBuild.ExtensionPack.tasks` file. Th
     <ExtensionTasksPath Condition="'$(ExtensionTasksPath)' == ''">$(MSBuildExtensionsPath)\ExtensionPack\4.0\</ExtensionTasksPath>
 
 The property reference `$(MSBuildExtensionsPath)` must be changed to `$(MSBuildExtensionsPath64)`.
+
+## Custom Tasks
+
+We can create custom tasks which are converted into dlls to be used in our build script.
+
+This can be achieved as follows:
+
+* Create a class library project in visual studio
+* Add references for `Microsoft.Build.Utilities` and `Microsoft.Build.Framework`.
+* Create a class which inherits from `Task`.
+* Specify required properties the build script must define:
+
+
+    [Required]
+    public double Number1 { get; set; }
+
+* Specify output properties which can be used in the build script:
+
+
+    [Output]
+    public double Result { get; set; }
+
+* Override the execute method and set the output parameters.
+
+*Full code listing of above example*
+
+    using Microsoft.Build.Utilities;
+    using Microsoft.Build.Framework;
+
+    public class AddTwoNumbers : Task
+    {
+        [Required]
+        public double Number1 { get; set; }
+
+        [Required]
+        public double Number2 { get; set; }
+
+        [Output]
+        public double Result { get; set; }
+
+        public override bool Execute()
+        {
+            Result = Number1 + Number2;
+
+            Log.LogMessage(MessageImportance.High, "Add two numbers", null);
+
+            return true;
+        }
+    }
+
+We need to reference this in our build script with a `UsingTask` node:
+
+    <UsingTask AssemblyFile=".\MSBuildCustomTasks\MSBuildCustomTasks\bin\Debug\MSBuildCustomTasks.dll"
+                   TaskName="AddTwoNumbers" />

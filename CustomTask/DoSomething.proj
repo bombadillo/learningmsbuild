@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+    <Import Project="Custom.tasks" />
+
+    <Target Name="Math">
+
+        <AddTwoNumbers Number1="10" Number2="4">
+            <Output TaskParameter="Result" PropertyName="Sum" />
+        </AddTwoNumbers>
+
+        <Message Text="$(sum)" />
+
+    </Target>
+
+</Project>
